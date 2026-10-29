@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BrightWave | Creative Agency</title>
+    <style>
+      :root {
+        --bg: #0f172a;
+        --bg-2: #111827;
+        --panel: rgba(15, 23, 42, 0.75);
+        --text: #ecfeff;
+        --muted: #a5b4fc;
+        --primary: #7c3aed;
+        --secondary: #22d3ee;
+        --accent: #f97316;
+        --card: rgba(30, 41, 59, 0.9);
+        --light: #f8fafc;
+        --shadow: rgba(15, 23, 42, 0.5);
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background: linear-gradient(135deg, var(--bg), var(--bg-2));
+        color: var(--text);
+      }
+
+      a { color: inherit; text-decoration: none; }
+      img { max-width: 100%; display: block; }
+
+      .container {
+        width: min(1160px, calc(100% - 28px));
+        margin: 0 auto;
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        backdrop-filter: blur(14px);
+        background: rgba(15, 23, 42, 0.55);
+        border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+        z-index: 50;
+      }
+
+      .nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 78px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 800;
+        letter-spacing: 0.04em;
+      }
+
+      .brand-mark {
+        width: 36px;
+        height: 36px;
+        border-radius: 12px;
+        display: grid;
+        place-items: center;
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        color: white;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 26px;
+        color: var(--muted);
+      }
+
+      .nav-links a:hover { color: var(--light); }
+
+      .nav-actions {
+        display: flex;
+        gap: 12px;
+      }
+
+      .btn {
+        padding: 11px 18px;
+        border-radius: 12px;
+        border: 1px solid transparent;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      .btn.primary {
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        color: white;
+        box-shadow: 0 18px 28px rgba(124, 58, 237, 0.35);
+      }
+
+      .btn.outline {
+        background: transparent;
+        border-color: rgba(148, 163, 184, 0.35);
+        color: var(--text);
+      }
+
+      .hero {
+        padding: 80px 0 40px;
+      }
+
+      .hero-wrap {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        align-items: center;
+        gap: 42px;
+      }
+
+      .eyebrow {
+        display: inline-block;
+        background: rgba(34, 211, 238, 0.1);
+        color: var(--secondary);
+        border: 1px solid rgba(34, 211, 238, 0.2);
+        padding: 8px 12px;
+        border-radius: 999px;
+        font-size: 0.74rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        font-weight: 700;
+      }
+
+      h1 {
+        margin: 18px 0 18px;
+        font-size: clamp(2.8rem, 5vw, 5rem);
+        line-height: 0.96;
+        letter-spacing: -0.06em;
+      }
+
+      .subtitle {
+        max-width: 560px;
+        color: rgba(226, 232, 240, 0.8);
+        line-height: 1.8;
+        font-size: 1.06rem;
+      }
+
+      .cta {
+        display: flex;
+        gap: 14px;
+        margin-top: 28px;
+      }
+
+      .stats {
+        display: flex;
+        gap: 26px;
+        flex-wrap: wrap;
+        margin-top: 30px;
+      }
+
+      .stats div {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+      }
+
+      .stats strong {
+        font-size: 1.7rem;
+      }
+
+      .stats span {
+        color: rgba(226, 232, 240, 0.7);
+      }
+
+      .mockup {
+        background: linear-gradient(180deg, rgba(15, 23, 42, 0.7), rgba(17, 24, 39, 0.9));
+        border: 1px solid rgba(148, 163, 184, 0.2);
+        border-radius: 26px;
+        box-shadow: 0 30px 60px var(--shadow);
+        padding: 16px;
+      }
+
+      .window-top {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 18px;
+        padding-left: 8px;
+      }
+
+      .window-top span {
+        display: block;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: rgba(148, 163, 184, 0.8);
+      }
+
+      .window-body {
+        background: var(--card);
+        border-radius: 20px;
+        border: 1px solid rgba(148, 163, 184, 0.2);
+        padding: 20px;
+      }
+
+      .bar-graph {
+        display: flex;
+        align-items: end;
+        gap: 12px;
+        height: 150px;
+        margin: 18px 0 24px;
+      }
+
+      .bar-graph span {
+        flex: 1;
+        border-radius: 16px 16px 0 0;
+        background: linear-gradient(180deg, var(--secondary), var(--primary));
+      }
+
+      .mini-cards {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+      }
+
+      .mini-card {
+        background: rgba(255,255,255,0.02);
+        border: 1px solid rgba(148, 163, 184, 0.15);
+        border-radius: 16px;
+        padding: 18px;
+      }
+
+      .mini-card p {
+        margin: 0 0 10px;
+        color: rgba(226,232,240,0.7);
+      }
+
+      .mini-card strong {
+        font-size: 1.8rem;
+      }
+
+      .section {
+        padding: 80px 0;
+      }
+
+      .section-header {
+        margin-bottom: 30px;
+      }
+
+      .section-header h2 {
+        margin: 0;
+        font-size: clamp(2rem, 3vw, 3rem);
+        letter-spacing: -0.04em;
+      }
+
+      .features {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 22px;
+      }
+
+      .feature {
+        padding: 28px 20px;
+        background: rgba(15, 23, 42, 0.4);
+        border: 1px solid rgba(148, 163, 184, 0.2);
+        border-radius: 20px;
+      }
+
+      .icon {
+        width: 48px;
+        height: 48px;
+        display: grid;
+        place-items: center;
+        background: rgba(124, 58, 237, 0.14);
+        border: 1px solid rgba(124, 58, 237, 0.25);
+        border-radius: 14px;
+        font-size: 1.4rem;
+        margin-bottom: 16px;
+      }
+
+      .feature h3 {
+        margin: 0 0 12px;
+      }
+
+      .feature p {
+        margin: 0;
+        color: rgba(226,232,240,0.75);
+        line-height: 1.7;
+      }
+
+      .pricing {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 22px;
+      }
+
+      .price {
+        background: rgba(15, 23, 42, 0.4);
+        border: 1px solid rgba(148, 163, 184, 0.25);
+        border-radius: 24px;
+        padding: 24px 20px;
+      }
+
+      .price.popular {
+        border-color: rgba(34, 211, 238, 0.7);
+        background: linear-gradient(180deg, rgba(14,116,144,0.12), rgba(15,23,42,0.4));
+      }
+
+      .price h3 {
+        font-size: 2.2rem;
+        margin: 8px 0 12px;
+      }
+
+      .price span {
+        color: rgba(226,232,240,0.7);
+      }
+
+      .price ul {
+        list-style: none;
+        padding: 0;
+        margin: 18px 0 20px;
+        display: grid;
+        gap: 12px;
+        color: rgba(226,232,240,0.8);
+      }
+
+      .price li::before {
+        content: '✓';
+        color: #34d399;
+        margin-right: 8px;
+      }
+
+      .footer {
+        padding: 20px 0 50px;
+        border-top: 1px solid rgba(148, 163, 184, 0.2);
+        text-align: center;
+        color: rgba(226,232,240,0.7);
+      }
+
+      @media (max-width: 900px) {
+        .hero-wrap,
+        .features,
+        .pricing {
+          grid-template-columns: 1fr;
+        }
+
+        .nav {
+          flex-wrap: wrap;
+          height: auto;
+          padding: 18px 0;
+          gap: 12px;
+        }
+
+        .nav-links {
+          width: 100%;
+          justify-content: center;
+          flex-wrap: wrap;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container nav">
+        <div class="brand">
+          <div class="brand-mark">B</div>
+          <span>BrightWave</span>
+        </div>
+
+        <nav class="nav-links">
+          <a href="#features">Features</a>
+          <a href="#pricing">Pricing</a>
+          <a href="#work">Work</a>
+          <a href="#contact">Contact</a>
+        </nav>
+
+        <div class="nav-actions">
+          <button class="btn outline">Login</button>
+          <button class="btn primary">Book a call</button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="container hero-wrap">
+          <div>
+            <span class="eyebrow">Digital Growth Studio</span>
+            <h1>Turn ideas into unforgettable brands.</h1>
+            <p class="subtitle">
+              We design bold digital experiences for startups, creators, and businesses ready to make a lasting impression.
+            </p>
+            <div class="cta">
+              <button class="btn primary">Start your project</button>
+              <button class="btn outline">See portfolio</button>
+            </div>
+            <div class="stats">
+              <div>
+                <strong>12k+</strong>
+                <span>projects</span>
+              </div>
+              <div>
+                <strong>95%</strong>
+                <span>retention</span>
+              </div>
+              <div>
+                <strong>4.9/5</strong>
+                <span>client rating</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mockup">
+            <div class="window-top">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <div class="window-body">
+              <div class="bar-graph">
+                <span style="height: 30%"></span>
+                <span style="height: 45%"></span>
+                <span style="height: 60%"></span>
+                <span style="height: 80%"></span>
+                <span style="height: 100%"></span>
+              </div>
+
+              <div class="mini-cards">
+                <div class="mini-card">
+                  <p>Brand reach</p>
+                  <strong>+128%</strong>
+                </div>
+                <div class="mini-card">
+                  <p>Leads</p>
+                  <strong>3.4x</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="features">
+        <div class="container">
+          <div class="section-header">
+            <span class="eyebrow">Why choose us</span>
+            <h2>We build experiences that move people.</h2>
+          </div>
+
+          <div class="features">
+            <article class="feature">
+              <div class="icon">✦</div>
+              <h3>Brand Strategy</h3>
+              <p>We define positioning, voice, and visuals that make your brand stand out in a crowded market.</p>
+            </article>
+
+            <article class="feature">
+              <div class="icon">⚡</div>
+              <h3>High-Impact Design</h3>
+              <p>Every page is crafted to load fast, feel premium, and guide visitors toward meaningful action.</p>
+            </article>
+
+            <article class="feature">
+              <div class="icon">◎</div>
+              <h3>Conversion Focus</h3>
+              <p>From landing pages to campaign systems, we optimize every detail for clicks, trust, and growth.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="pricing">
+        <div class="container">
+          <div class="section-header">
+            <span class="eyebrow">Pricing</span>
+            <h2>Simple plans for growing teams.</h2>
+          </div>
+
+          <div class="pricing">
+            <article class="price">
+              <p>Starter</p>
+              <h3>$29<span>/mo</span></h3>
+              <ul>
+                <li>1 landing page</li>
+                <li>Theme setup</li>
+                <li>Email support</li>
+              </ul>
+              <button class="btn outline">Choose plan</button>
+            </article>
+
+            <article class="price popular">
+              <p>Professional</p>
+              <h3>$79<span>/mo</span></h3>
+              <ul>
+                <li>Unlimited pages</li>
+                <li>Brand system</li>
+                <li>Priority support</li>
+              </ul>
+              <button class="btn primary">Most popular</button>
+            </article>
+
+            <article class="price">
+              <p>Agency</p>
+              <h3>$149<span>/mo</span></h3>
+              <ul>
+                <li>Strategy workshops</li>
+                <li>Custom design support</li>
+                <li>Dedicated manager</li>
+              </ul>
+              <button class="btn outline">Talk to us</button>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer" id="contact">
+      <div class="container">
+        <p>BrightWave © 2026 — Creative strategy and digital design.</p>
+      </div>
+    </footer>
+  </body>
+</html>
